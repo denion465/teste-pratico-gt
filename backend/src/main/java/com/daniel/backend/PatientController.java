@@ -37,6 +37,7 @@ public class PatientController {
   // Rota para salvar formulário do paciente
   @PostMapping("/patients")
   public Patient PostPatient(@RequestBody Patient patient) {
+    patient.setCpf(Encrypt.encrypt(patient.getCpf()));
 
     return patientRepository.save(patient);
   }
