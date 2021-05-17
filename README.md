@@ -32,7 +32,7 @@
   ### Rodando o Aplicação frontend
 
     # Clone este repositório
-    $ git clone <>
+    $ git clone https://github.com/denion465/teste-pratico-gt
 
     # Acesse a pasta do projeto frontend
     $ cd teste-pratico-gt/frontend   
