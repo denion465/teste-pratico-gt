@@ -7,11 +7,11 @@
 ## Conteúdo
 
 <p>
-  <a href="#requirements">Pré-requisitos</a>
-  <a href="#runningApp">Rodando o Aplicação frontend</a>
-  <a href="#runningBack">Rodando o Aplicação backend</a>
-  <a href="#technology">Tecnologias</a>
-  <a href="#author">Autor</a>
+  <a href="#requirements">Pré-requisitos  |</a>
+  <a href="#runningApp">Rodando o Aplicação frontend  |</a>
+  <a href="#runningBack">Rodando o Aplicação backend  |</a>
+  <a href="#technology">Tecnologias  |</a>
+  <a href="#author">Autor  |</a>
 </p>
 
 
@@ -57,7 +57,7 @@
   | element.instance.setStyle(options);
   | optionsRef.current = options;
 
-  # Por favor entre na pasta frontend/node_modules/webpack e exclua a pasta node_modules que vai estar dentro do webpack.
+  # Por favor entre na pasta frontend/node_modules/webpack e exclua a pasta node_modules que vai estar dentro da pasta do webpack.
   # Não entendi muito esse erro, por enquanto foi está solução que encontrei.
 
   # Após isso reinicie a aplicação novamente
