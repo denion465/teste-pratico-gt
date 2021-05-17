@@ -59,6 +59,8 @@
 
   # Por favor entre na pasta frontend/node_modules/webpack e exclua a pasta node_modules que vai estar dentro do webpack.
   # Não entendi muito esse erro, por enquanto foi está solução que encontrei.
+
+  # Após isso reinicie a aplicação novamente
  
 </section>
 
@@ -83,11 +85,35 @@
   * .[SpringBoot]
   * .[MySql]
 
+  ### 📘 Libs
+  # 💻 Frontend
+  * Material-ui
+  * unform
+  * unform-material-ui
+  * Axios
+  * leaflet
+  * polished
+  * react-leaflet
+  * styled-components
+  * typescript
+
+  # 💽 Backend
+  * Spring Boot data Jpa
+  * Spring Boot data Starter Web
+  * MySQL connector java
+  * Lombok
+  * Spring Boot Maven plugin
+  
 </section>
 
-## Author
-  * Daniel Vidal
-  * GitHub: https://github.com/denion465
+
+<section id='#author'>
+
+  ## Author
+    * Daniel Vidal
+    * GitHub: https://github.com/denion465
+
+  </section>
 
 
 
