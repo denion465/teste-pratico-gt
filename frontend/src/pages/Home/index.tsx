@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Content, Background } from './styles';
 
 import logoPng from '../../assets/logo.png';
@@ -9,10 +10,15 @@ const Home: React.FC = () => (
     <Content>
       <img src={logoPng} alt="Logo" />
       <form>
-        <Button type="submit">Criar Formulário do paciente</Button>
-        <Button type="submit">Exibir pacientes cadastrados</Button>
+        <Link to="/createpatient">
+          <Button type="button">Criar Formulário do paciente</Button>
+        </Link>
+        <Link to="/map">
+          <Button type="button">Mapa</Button>
+        </Link>
       </form>
     </Content>
+
     <Background />
   </Container>
 );

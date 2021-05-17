@@ -29,7 +29,7 @@ public class PatientController {
   }
 
   @GetMapping("/patients/{id}")
-  public Patient GetPatient(@PathVariable Integer id) {
+  public Patient GetPatient(@PathVariable Long id) {
 
     return patientRepository.findById(id).orElse(null);
   }
@@ -42,6 +42,7 @@ public class PatientController {
     return patientRepository.save(patient);
   }
 
+  // Rota para atulizar
   @PutMapping("/patients")
   public Patient PutPatient(@RequestBody Patient patient) {
     Patient oldPatient = patientRepository.findById(patient.getId())
@@ -57,8 +58,9 @@ public class PatientController {
     return patientRepository.save(oldPatient);
   }
 
+  //Rota para deletar
   @DeleteMapping("/patients/{id}")
-  public Integer DeletePatient(@PathVariable Integer id) {
+  public Long DeletePatient(@PathVariable Long id) {
     patientRepository.deleteById(id);
 
     return id;

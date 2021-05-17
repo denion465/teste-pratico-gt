@@ -11,10 +11,8 @@ public class Encrypt {
       md = MessageDigest.getInstance("MD5");
       BigInteger hash = new BigInteger(1, md.digest(cpf.getBytes()));
       // Aqui convertemos a senha para Hexadecimal
-
       res = hash.toString(16);
     } catch (Exception e) {
-      //TODO: handle exception
     }
 
     return res;
