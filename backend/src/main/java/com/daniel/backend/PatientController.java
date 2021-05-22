@@ -43,7 +43,7 @@ public class PatientController {
   }
 
   // Rota para atulizar
-  @PutMapping("/patients")
+  @PutMapping("/patients/{id}")
   public Patient PutPatient(@RequestBody Patient patient) {
     Patient oldPatient = patientRepository.findById(patient.getId())
     .orElse(null);

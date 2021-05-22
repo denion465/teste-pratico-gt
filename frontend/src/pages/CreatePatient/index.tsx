@@ -1,16 +1,73 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
-
 import { Form } from '@unform/web';
-import { TextField } from 'unform-material-ui';
-import { FormHelperText } from '@material-ui/core';
-// import MenuItem from '@material-ui/core/MenuItem';
+import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
+
+import { Container, Content, Background } from './styles';
+
+import getValidateErrors from '../../utils/getValidationError';
 
 import Button from '../../components/Button';
-import api from '../../services/api';
-import { Container, Content, Background } from './styles';
+import Input from '../../components/Input';
+import Select from '../../components/Select';
+
+const CreatePatient: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+
+  const handleSubmit = useCallback(async (data, { reset }: any) => {
+    reset();
+    try {
+      formRef.current?.setErrors({});
+
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome Obrigatório'),
+        cpf: Yup.string().required('CPF Obrigatório'),
+        uf: Yup.string().required('UF Obrigatório'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+    } catch (error) {
+      const errors = getValidateErrors(error);
+
+      formRef.current?.setErrors(errors);
+    }
+  }, []);
+
+  return (
+    <Container>
+      <Content>
+        <Form onSubmit={handleSubmit} ref={formRef}>
+          <Input name="name" placeholder="Digite seu nome" />
+          <Input name="cpf" placeholder="Digite seu CPF" />
+          <Input name="birth" placeholder="Data de nascimento" />
+          <Input name="weight" placeholder="Peso em Kg" />
+          <Input name="height" placeholder="Altura em Metros" />
+          <Select name="uf" />
+          <Button type="submit">Criar</Button>
+          <Link to="/">
+            <Button type="button">Voltar</Button>
+          </Link>
+        </Form>
+      </Content>
+      <Background />
+    </Container>
+  );
+};
+
+export default CreatePatient;
+
+// <Select name="uf">
+// {UF.map(option => (
+//   <MenuItem key={option.value} value={option.value}>
+//     {option.label}
+//   </MenuItem>
+// ))}
+// </Select>
 
 // Objetos com valor de estados não implementados
 // const UF = [
@@ -119,87 +176,3 @@ import { Container, Content, Background } from './styles';
 //     label: 'TO',
 //   },
 // ];
-
-const CreatePatient: React.FC = () => {
-  // Função para verificar se os dados estão completos, entao enviamos para api
-  function handleSubmit(data: any, { reset }: any): void {
-    if (data.name === '' || data.cpf === '' || data.uf === '') {
-      alert('Dados Incompletos');
-      reset();
-    } else {
-      try {
-        api
-          .post('/api/patients', data)
-          .then(() => alert('Paciente cadastrado'));
-        reset();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }
-
-  // const [uf, setUf] = React.useState('MG');
-  // function handleChange(e: ChangeEvent<HTMLInputElement>): void {
-  //   setUf(e.target.value);
-  // }
-
-  return (
-    <Container>
-      <Content>
-        <Form onSubmit={handleSubmit}>
-          <TextField
-            name="name"
-            placeholder="Nome completo"
-            label="Nome Completo"
-          />
-          <FormHelperText> Nome obrigatório</FormHelperText>
-          <TextField name="cpf" placeholder="CPF" label="CPF" />
-          <FormHelperText> CPF obrigatório</FormHelperText>
-          <TextField
-            name="birth"
-            placeholder="Data de nascimento"
-            label="Data de nascimento"
-          />
-          <TextField
-            name="weight"
-            placeholder="Peso em Kg"
-            label="Peso em Kg"
-          />
-          <TextField
-            name="height"
-            placeholder="Altura em Metros"
-            label="Altura em Metros"
-          />
-
-          {
-            // Tentativa de adicionar o Select no formulário
-            /* <TextField
-            select
-            name="uf"
-            label="Selecione"
-            value={uf}
-            onChange={handleChange}
-            helperText="Selecione seu estado"
-          >
-            {UF.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField> */
-          }
-
-          <TextField name="uf" placeholder="UF" label="UF" />
-          <FormHelperText> Uf Obrigatório</FormHelperText>
-          <Button type="submit">Criar</Button>
-          <Link to="/">
-            <Button type="button">Voltar</Button>
-          </Link>
-        </Form>
-      </Content>
-      <Background />
-    </Container>
-  );
-};
-
-export default CreatePatient;

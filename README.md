@@ -19,12 +19,13 @@
 
 .[Nodejs]
 .[Docker]
+.[Java11]
 
- ### Configurando Docker
+ # Configurando Docker
+ ### Instale o docker
+ $ sudo apt install docker.io
 
- # Certifique-se que o Docker esteja instalado
-
-  # No linux, usei este comando para criar o container com a imagem do MySQL
+  # No Linux, usei este comando para criar o container com a imagem do MySQL
   $ docker run --name mysql-teste-gt-clinica -e MYSQL_ROOT_PASSWORD=docker -e MYSQL_DATABASE=mydbgt -d -p 3306:3306 mysql:latest
 
 <section id='runningApp'>
@@ -43,7 +44,7 @@
     # A applicação inciará na porta:3000 - acesse <http://localhost:3000>
 
   # IMPORTANTE - WEBPACK CAUSANDO UM ERRO 
-  # Caso aconteça esse erro ou similar:
+  ### Caso aconteça esse erro ou similar:
 
   ./node_modules/@react-leaflet/core/esm/path.js 10:41
     Module parse failed: Unexpected token (10:41)
@@ -82,10 +83,11 @@
   * .[NodeJs]
   * .[React]
   * .[Docker]
+  * .[Java]
   * .[SpringBoot]
   * .[MySql]
 
-  ### 📘 Libs
+  # 📘 Libs
   # 💻 Frontend
   * Material-ui
   * unform
@@ -112,6 +114,7 @@
   ## Author
     * Daniel Vidal
     * GitHub: https://github.com/denion465
+    * Linkedin: https://www.linkedin.com/in/daniel-vidal465/
 
   </section>
 
