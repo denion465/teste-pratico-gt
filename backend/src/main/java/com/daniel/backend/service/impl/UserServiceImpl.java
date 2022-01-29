@@ -6,10 +6,13 @@ import com.daniel.backend.repository.UserRepository;
 import com.daniel.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -26,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     userDto.setPublicId(UUID.randomUUID().toString());
     userDto.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+    userDto.setRegistrationDate(LocalDateTime.now());
 
     UserEntity userEntity = new UserEntity();
     BeanUtils.copyProperties(userDto, userEntity);
@@ -35,5 +39,10 @@ public class UserServiceImpl implements UserService {
     BeanUtils.copyProperties(returnValue, userDto);
 
     return userDto;
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return null;
   }
 }

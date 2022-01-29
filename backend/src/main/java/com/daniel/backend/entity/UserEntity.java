@@ -3,7 +3,6 @@ package com.daniel.backend.entity;
 import com.daniel.backend.util.ConfigUrl;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -45,7 +44,6 @@ public class UserEntity {
   @Column(nullable = false)
   private String phone;
 
-  @CreationTimestamp
-  @Column(nullable = false, columnDefinition = "datetime")
+  @Column(nullable = false)
   private LocalDateTime registrationDate;
 }
