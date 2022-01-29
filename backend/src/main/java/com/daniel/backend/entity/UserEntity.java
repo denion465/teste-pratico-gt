@@ -9,12 +9,11 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(schema = ConfigUrl.SCHEMA_CLINICA_MEDICA, name = "Usuarios")
+@Table(schema = ConfigUrl.SCHEMA_CLINICA_MEDICA, name = "usuarios")
 public class UserEntity {
 
   @Id
@@ -25,7 +24,7 @@ public class UserEntity {
   private long id;
 
   @Column(nullable = false)
-  private String publicId = UUID.randomUUID().toString();
+  private String publicId;
 
   @NotBlank
   @Column(nullable = false, length = 50)
