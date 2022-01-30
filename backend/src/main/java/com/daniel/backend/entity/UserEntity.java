@@ -8,11 +8,13 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashSet;
 
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(schema = ConfigUrl.SCHEMA_CLINICA_MEDICA, name = "usuarios")
+@Table(schema = ConfigUrl.SCHEMA_CLINICA_MEDICA, name = "users")
 public class UserEntity {
 
   @Id
@@ -46,4 +48,10 @@ public class UserEntity {
 
   @Column(nullable = false)
   private LocalDateTime registrationDate;
+
+  @ManyToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.EAGER)
+  @JoinTable(name = "users_roles",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+  private Collection<RolesEntity> roles = new HashSet<>();
 }

@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     if (userRepository.findByEmail(userDto.getEmail()) != null)
       throw new RuntimeException("Usuário ja existente");
 
-    userDto.setPublicId(UUID.randomUUID().toString());
+    userDto.setPublicId(UUID.randomUUID().toString().replace("-", ""));
     userDto.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
     userDto.setRegistrationDate(LocalDateTime.now());
 
