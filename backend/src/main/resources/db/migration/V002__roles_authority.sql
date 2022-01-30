@@ -36,4 +36,12 @@ alter table clinica_medica.roles_authorities add constraint fk_role_id
 alter table clinica_medica.roles_authorities add constraint fk_authority_id
   foreign key (authority_id) references clinica_medica.authorities (id);
 
+insert into clinica_medica.roles (id, name) values (1, 'ROLE_PATIENT');
+insert into clinica_medica.roles (id, name) values (2, 'ROLE_NURSE');
+insert into clinica_medica.roles (id, name) values (3, 'ROLE_DOCTOR');
+
+insert into clinica_medica.authorities (id, name) values (1, 'READ_AUTHORITY');
+insert into clinica_medica.authorities (id, name) values (2, 'WRITE_AUTHORITY');
+insert into clinica_medica.authorities (id, name) values (3, 'DELETE_AUTHORITY');
+
 
