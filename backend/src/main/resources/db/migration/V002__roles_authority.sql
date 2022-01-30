@@ -44,4 +44,7 @@ insert into clinica_medica.authorities (id, name) values (1, 'READ_AUTHORITY');
 insert into clinica_medica.authorities (id, name) values (2, 'WRITE_AUTHORITY');
 insert into clinica_medica.authorities (id, name) values (3, 'DELETE_AUTHORITY');
 
+insert into clinica_medica.roles_authorities (role_id, authority_id)
+  values (1, 1), (2, 1), (2, 2), (3, 1), (3, 2), (3, 3);
+
 
