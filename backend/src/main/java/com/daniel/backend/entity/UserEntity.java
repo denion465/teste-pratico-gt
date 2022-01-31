@@ -1,6 +1,5 @@
 package com.daniel.backend.entity;
 
-import com.daniel.backend.util.ConfigUrl;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,16 +11,14 @@ import java.util.Collection;
 import java.util.HashSet;
 
 @Data
-@Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(schema = ConfigUrl.SCHEMA_CLINICA_MEDICA, name = "users")
+@Entity(name = "users")
 public class UserEntity {
 
   @Id
   @EqualsAndHashCode.Include
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
-  @SequenceGenerator(name = "user_id_seq", sequenceName = ConfigUrl.SCHEMA_CLINICA_MEDICA +
-    ".user_id_seq", allocationSize = 1)
+  @SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 1)
   private long id;
 
   @Column(nullable = false)
@@ -53,5 +50,5 @@ public class UserEntity {
   @JoinTable(name = "users_roles",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-  private Collection<RolesEntity> roles = new HashSet<>();
+  private Collection<RoleEntity> roles = new HashSet<>();
 }

@@ -1,19 +1,18 @@
 package com.daniel.backend.entity;
 
-import com.daniel.backend.util.ConfigUrl;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 
-@Entity
 @Data
-@Table(schema = ConfigUrl.SCHEMA_CLINICA_MEDICA, name = "roles")
-public class RolesEntity {
+@Entity(name = "roles")
+public class RoleEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_id_seq")
+  @SequenceGenerator(name = "role_id_seq", sequenceName = "role_id_seq", allocationSize = 1)
   private long id;
 
   @Column(nullable = false, length = 50)
@@ -22,9 +21,13 @@ public class RolesEntity {
   @ManyToMany(mappedBy = "roles")
   private Collection<UserEntity> users = new HashSet<>();
 
-  @ManyToMany
+  @ManyToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.EAGER)
   @JoinTable(name = "roles_authorities",
     joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
   private Collection<AuthorityEntity> authorities = new HashSet<>();
+
+  public RoleEntity(String name) {
+    this.name = name;
+  }
 }
