@@ -13,12 +13,13 @@ import java.util.HashSet;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity(name = "users")
+@Table(schema = "clinica_medica")
 public class UserEntity {
 
   @Id
   @EqualsAndHashCode.Include
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
-  @SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 1)
+  @SequenceGenerator(name = "user_id_seq", sequenceName = "clinica_medica.user_id_seq", allocationSize = 1)
   private long id;
 
   @Column(nullable = false)
@@ -47,7 +48,7 @@ public class UserEntity {
   private LocalDateTime registrationDate;
 
   @ManyToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.EAGER)
-  @JoinTable(name = "users_roles",
+  @JoinTable(schema = "clinica_medica", name = "users_roles",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Collection<RoleEntity> roles = new HashSet<>();

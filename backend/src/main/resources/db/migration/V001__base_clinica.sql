@@ -1,7 +1,8 @@
-create sequence user_id_seq;
+create schema clinica_medica;
+create sequence clinica_medica.user_id_seq;
 
-create table users (
-  id bigint not null default nextval('user_id_seq'::regclass),
+create table clinica_medica.users (
+  id bigint not null default nextval('clinica_medica.user_id_seq'::regclass),
   public_id varchar(100) not null,
   first_name varchar(50) not null,
   last_name varchar(50) not null,
