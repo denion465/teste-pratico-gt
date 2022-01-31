@@ -18,7 +18,7 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
-public class InitialAdminUsers {
+public class InitialUsers {
   private final UserRepository userRepository;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
   private final RoleRepository roleRepository;
@@ -32,26 +32,11 @@ public class InitialAdminUsers {
     AuthorityEntity deleteAuthority = createAuthority("DELETE_AUTHORITY");
 
     createRole("ROLE_PATIENT", List.of(readAuthority));
-    createRole("ROLE_NURSE", Arrays.asList(readAuthority, writeAuthority));
-    RoleEntity roleAdmin = createRole("ROLE_DOCTOR", Arrays.asList(readAuthority, writeAuthority, deleteAuthority));
+    RoleEntity roleNurse = createRole("ROLE_NURSE", Arrays.asList(readAuthority, writeAuthority));
+    RoleEntity roleDoctor = createRole("ROLE_DOCTOR", Arrays.asList(readAuthority, writeAuthority, deleteAuthority));
 
-
-    UserEntity adminUser = new UserEntity();
-
-    adminUser.setPublicId(UUID.randomUUID().toString().replace("-", ""));
-    adminUser.setFirstName("José");
-    adminUser.setLastName("Silva");
-    adminUser.setEmail("admin@clinica.com");
-    adminUser.setEncryptedPassword(bCryptPasswordEncoder.encode("123456"));
-    adminUser.setPhone("35-99999-9999");
-    adminUser.setRegistrationDate(LocalDateTime.now());
-    adminUser.setRoles(List.of(roleAdmin));
-
-    UserEntity soteredAdminUser = userRepository.findByEmail("admin@clinica.com");
-
-    if (soteredAdminUser == null) {
-      userRepository.save(adminUser);
-    }
+    createDoctorUser(roleDoctor);
+    createNuserUser(roleNurse);
   }
 
   @Transactional
@@ -77,5 +62,45 @@ public class InitialAdminUsers {
     }
 
     return role;
+  }
+
+  @Transactional
+  private void createDoctorUser(RoleEntity roleDoctor) {
+    UserEntity doctorUser = new UserEntity();
+
+    doctorUser.setPublicId(UUID.randomUUID().toString().replace("-", ""));
+    doctorUser.setFirstName("José");
+    doctorUser.setLastName("Silva");
+    doctorUser.setEmail("admin@clinica.com");
+    doctorUser.setEncryptedPassword(bCryptPasswordEncoder.encode("123456"));
+    doctorUser.setPhone("35-99999-9999");
+    doctorUser.setRegistrationDate(LocalDateTime.now());
+    doctorUser.setRoles(List.of(roleDoctor));
+
+    UserEntity storedDoctorUSer = userRepository.findByEmail("admin@clinica.com");
+
+    if (storedDoctorUSer == null) {
+      userRepository.save(doctorUser);
+    }
+  }
+
+  @Transactional
+  private void createNuserUser(RoleEntity roleNurse) {
+    UserEntity nurseUser = new UserEntity();
+
+    nurseUser.setPublicId(UUID.randomUUID().toString().replace("-", ""));
+    nurseUser.setFirstName("Fernanda");
+    nurseUser.setLastName("Lima");
+    nurseUser.setEmail("nurse@clinica.com");
+    nurseUser.setEncryptedPassword(bCryptPasswordEncoder.encode("123456"));
+    nurseUser.setPhone("35-88888-8888");
+    nurseUser.setRegistrationDate(LocalDateTime.now());
+    nurseUser.setRoles(List.of(roleNurse));
+
+    UserEntity storedNurseUser = userRepository.findByEmail("nurse@clinica.com");
+
+    if (storedNurseUser == null) {
+      userRepository.save(nurseUser);
+    }
   }
 }

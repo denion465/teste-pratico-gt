@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -17,4 +18,5 @@ public class UserDto {
   private String encryptedPassword;
   private String phone;
   private LocalDateTime registrationDate;
+  private Collection<String> roles;
 }

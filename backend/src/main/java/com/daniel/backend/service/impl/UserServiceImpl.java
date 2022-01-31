@@ -1,7 +1,9 @@
 package com.daniel.backend.service.impl;
 
 import com.daniel.backend.dto.UserDto;
+import com.daniel.backend.entity.RoleEntity;
 import com.daniel.backend.entity.UserEntity;
+import com.daniel.backend.repository.RoleRepository;
 import com.daniel.backend.repository.UserRepository;
 import com.daniel.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,14 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
   private final UserRepository userRepository;
+  private final RoleRepository roleRepository;
 
   @Override
   @Transactional
@@ -35,6 +37,18 @@ public class UserServiceImpl implements UserService {
 
     UserEntity userEntity = new UserEntity();
     BeanUtils.copyProperties(userDto, userEntity);
+
+    Collection<RoleEntity> roleEntities = new HashSet<>();
+
+    for (String role : userDto.getRoles()) {
+      RoleEntity storedRoleEntity = roleRepository.findByName(role);
+
+      if (role != null) {
+        roleEntities.add(storedRoleEntity);
+      }
+    }
+
+    userEntity.setRoles(roleEntities);
 
     UserEntity returnValue = userRepository.save(userEntity);
 

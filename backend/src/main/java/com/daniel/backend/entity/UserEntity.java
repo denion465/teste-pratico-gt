@@ -12,8 +12,8 @@ import java.util.HashSet;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity(name = "users")
-@Table(schema = "clinica_medica")
+@Entity
+@Table(schema = "clinica_medica", name = "users")
 public class UserEntity {
 
   @Id

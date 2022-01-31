@@ -1,14 +1,16 @@
 package com.daniel.backend.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
 
 @Data
-@Entity(name = "authorities")
-@Table(schema = "clinica_medica")
+@NoArgsConstructor
+@Entity
+@Table(schema = "clinica_medica", name = "authorities")
 public class AuthorityEntity {
 
   @Id
