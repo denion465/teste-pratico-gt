@@ -8,8 +8,8 @@ import java.util.Collection;
 import java.util.HashSet;
 
 @Data
-@Entity
 @NoArgsConstructor
+@Entity
 @Table(schema = "clinica_medica", name = "roles")
 public class RoleEntity {
 

@@ -2,15 +2,16 @@ package com.daniel.backend.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(schema = "clinica_medica", name = "users")
@@ -25,24 +26,12 @@ public class UserEntity {
   @Column(nullable = false)
   private String publicId;
 
-  @NotBlank
-  @Column(nullable = false, length = 50)
-  private String firstName;
-
-  @NotBlank
-  @Column(nullable = false, length = 50)
-  private String lastName;
-
   @Email
   @Column(nullable = false, length = 100)
   private String email;
 
   @Column(nullable = false)
   private String encryptedPassword;
-
-  @NotBlank
-  @Column(nullable = false)
-  private String phone;
 
   @Column(nullable = false)
   private LocalDateTime registrationDate;
@@ -52,4 +41,7 @@ public class UserEntity {
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Collection<RoleEntity> roles = new HashSet<>();
+
+  @OneToOne(mappedBy = "userEntity", cascade = { CascadeType.ALL })
+  private PersonEnitty personEnitty;
 }

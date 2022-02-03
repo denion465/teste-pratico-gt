@@ -1,8 +1,6 @@
 package com.daniel.backend;
 
-import com.daniel.backend.entity.AuthorityEntity;
-import com.daniel.backend.entity.RoleEntity;
-import com.daniel.backend.entity.UserEntity;
+import com.daniel.backend.entity.*;
 import com.daniel.backend.repository.AuthorityRepository;
 import com.daniel.backend.repository.RoleRepository;
 import com.daniel.backend.repository.UserRepository;
@@ -13,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -36,7 +35,7 @@ public class InitialUsers {
     RoleEntity roleDoctor = createRole("ROLE_DOCTOR", Arrays.asList(readAuthority, writeAuthority, deleteAuthority));
 
     createDoctorUser(roleDoctor);
-    createNuserUser(roleNurse);
+//    createNurseUser(roleNurse);
   }
 
   @Transactional
@@ -68,14 +67,30 @@ public class InitialUsers {
   private void createDoctorUser(RoleEntity roleDoctor) {
     UserEntity doctorUser = new UserEntity();
 
+    PersonEnitty doctorPerson = new PersonEnitty();
+    doctorPerson.setFirstName("Jose");
+    doctorPerson.setLastName("Silva");
+    doctorPerson.setCpf("111.111.111-11");
+    doctorPerson.setBirthDate(LocalDate.ofEpochDay(1990-10-20));
+    doctorPerson.setWeight("90 kg");
+    doctorPerson.setHeight("1.80 cm");
+    doctorPerson.setPhone("35-99999-9999");
+
+    AddressEntity addressEntity = new AddressEntity();
+    addressEntity.setCity("Pouso Alegre");
+    addressEntity.setUf("MG");
+    addressEntity.setStreetName("Amazonas");
+    addressEntity.setPostalCode("37490");
+
     doctorUser.setPublicId(UUID.randomUUID().toString().replace("-", ""));
-    doctorUser.setFirstName("José");
-    doctorUser.setLastName("Silva");
     doctorUser.setEmail("admin@clinica.com");
     doctorUser.setEncryptedPassword(bCryptPasswordEncoder.encode("123456"));
-    doctorUser.setPhone("35-99999-9999");
     doctorUser.setRegistrationDate(LocalDateTime.now());
     doctorUser.setRoles(List.of(roleDoctor));
+
+    doctorPerson.setAddresses(addressEntity);
+    doctorPerson.setUserEntity(doctorUser);
+    doctorUser.setPersonEnitty(doctorPerson);
 
     UserEntity storedDoctorUSer = userRepository.findByEmail("admin@clinica.com");
 
@@ -85,15 +100,23 @@ public class InitialUsers {
   }
 
   @Transactional
-  private void createNuserUser(RoleEntity roleNurse) {
+  private void createNurseUser(RoleEntity roleNurse) {
     UserEntity nurseUser = new UserEntity();
 
     nurseUser.setPublicId(UUID.randomUUID().toString().replace("-", ""));
-    nurseUser.setFirstName("Fernanda");
-    nurseUser.setLastName("Lima");
+    nurseUser.getPersonEnitty().setFirstName("Fernanda");
+    nurseUser.getPersonEnitty().setLastName("Lima");
+    nurseUser.getPersonEnitty().setCpf("222.222.222");
+    nurseUser.getPersonEnitty().setBirthDate(LocalDate.ofEpochDay(1995-10-20));
+    nurseUser.getPersonEnitty().setWeight("60 kg");
+    nurseUser.getPersonEnitty().setWeight("1.50 cm");
+    nurseUser.getPersonEnitty().getAddresses().setCity("Varginha");
+    nurseUser.getPersonEnitty().getAddresses().setUf("MG");
+    nurseUser.getPersonEnitty().getAddresses().setStreetName("Rosa");
+    nurseUser.getPersonEnitty().getAddresses().setPostalCode("37490-000");
     nurseUser.setEmail("nurse@clinica.com");
     nurseUser.setEncryptedPassword(bCryptPasswordEncoder.encode("123456"));
-    nurseUser.setPhone("35-88888-8888");
+    nurseUser.getPersonEnitty().setLastName("35-88888-8888");
     nurseUser.setRegistrationDate(LocalDateTime.now());
     nurseUser.setRoles(List.of(roleNurse));
 
