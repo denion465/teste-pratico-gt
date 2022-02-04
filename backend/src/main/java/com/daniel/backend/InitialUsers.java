@@ -18,6 +18,7 @@ import java.util.*;
 @Component
 @RequiredArgsConstructor
 public class InitialUsers {
+
   private final UserRepository userRepository;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
   private final RoleRepository roleRepository;
@@ -35,7 +36,7 @@ public class InitialUsers {
     RoleEntity roleDoctor = createRole("ROLE_DOCTOR", Arrays.asList(readAuthority, writeAuthority, deleteAuthority));
 
     createDoctorUser(roleDoctor);
-//    createNurseUser(roleNurse);
+    createNurseUser(roleNurse);
   }
 
   @Transactional
@@ -103,22 +104,30 @@ public class InitialUsers {
   private void createNurseUser(RoleEntity roleNurse) {
     UserEntity nurseUser = new UserEntity();
 
+    PersonEnitty nursePerson = new PersonEnitty();
+    nursePerson.setFirstName("Fernanda");
+    nursePerson.setLastName("Lima");
+    nursePerson.setCpf("222.222.222-22");
+    nursePerson.setBirthDate(LocalDate.ofEpochDay(1995-10-20));
+    nursePerson.setWeight("70 kg");
+    nursePerson.setHeight("1.50 cm");
+    nursePerson.setPhone("35-88888-8888");
+
+    AddressEntity addressEntity = new AddressEntity();
+    addressEntity.setCity("Varginha");
+    addressEntity.setUf("MG");
+    addressEntity.setStreetName("São Paulo");
+    addressEntity.setPostalCode("37490");
+
     nurseUser.setPublicId(UUID.randomUUID().toString().replace("-", ""));
-    nurseUser.getPersonEnitty().setFirstName("Fernanda");
-    nurseUser.getPersonEnitty().setLastName("Lima");
-    nurseUser.getPersonEnitty().setCpf("222.222.222");
-    nurseUser.getPersonEnitty().setBirthDate(LocalDate.ofEpochDay(1995-10-20));
-    nurseUser.getPersonEnitty().setWeight("60 kg");
-    nurseUser.getPersonEnitty().setWeight("1.50 cm");
-    nurseUser.getPersonEnitty().getAddresses().setCity("Varginha");
-    nurseUser.getPersonEnitty().getAddresses().setUf("MG");
-    nurseUser.getPersonEnitty().getAddresses().setStreetName("Rosa");
-    nurseUser.getPersonEnitty().getAddresses().setPostalCode("37490-000");
     nurseUser.setEmail("nurse@clinica.com");
     nurseUser.setEncryptedPassword(bCryptPasswordEncoder.encode("123456"));
-    nurseUser.getPersonEnitty().setLastName("35-88888-8888");
     nurseUser.setRegistrationDate(LocalDateTime.now());
     nurseUser.setRoles(List.of(roleNurse));
+
+    nursePerson.setAddresses(addressEntity);
+    nursePerson.setUserEntity(nurseUser);
+    nurseUser.setPersonEnitty(nursePerson);
 
     UserEntity storedNurseUser = userRepository.findByEmail("nurse@clinica.com");
 
