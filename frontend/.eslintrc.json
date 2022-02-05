@@ -1,61 +1,33 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "airbnb",
-        "prettier",
-        "plugin:react/recommended"
-    ],
-    "globals": {
-      "Atomics": "readonly",
-      "SharedArrayBuffer": "readonly"
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "react-hooks",
-        "@typescript-eslint",
-        "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": "error",
-      "react-hooks/rules-of-hooks": "error",
-      "import/no-extraneous-dependencies": "off",
-      "react/jsx-props-no-spreading": "off",
-      "react/prop-types": "off",
-      "camelcase":"off",
-      "no-use-before-define": "off",
-      "@typescript-eslint/no-use-before-define": ["error"],
-      "@typescript-eslint/explicit-function-return-type": [
-        "error",
-        {
-          "allowExpressions": true
-        }
-      ],
-      "react-hooks/exhaustive-deps": "warn",
-      "react/jsx-filename-extension": [1, {"extensions": [".tsx"]}],
-      "import/prefer-default-export": "off",
-      "import/extensions": [
-        "error",
-        "ignorePackages",
-        {
-            "ts": "never",
-            "tsx": "never"
-        }
-    ]
-    },
-      "settings": {
-        "import/resolver": {
-            "typescript": {}
-    }
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "arrow-parens": "off",
+    "max-len": "off",
+    "no-console": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [1, {"extensions": [".tsx"]}],
+    "import/prefer-default-export": "off",
+    "import/extensions": "off",
+    "import/no-unresolved": "off"
   }
 }
